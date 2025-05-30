@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Students List</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0bcce5, #ffffff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #0b9abf; /* matching the warden page heading color */
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .top-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .top-buttons a {
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      box-shadow: 0 4px 12px rgba(11, 154, 191, 0.4);
+      color: white;
+      user-select: none;
+    }
+
+    .add-new {
+      background-color: #0b9abf;
+    }
+
+    .add-new:hover {
+      background-color: #097a8a;
+      box-shadow: 0 6px 20px rgba(9, 122, 138, 0.7);
+    }
+
+    .back-dashboard {
+      background-color: #34495e;
+      color: white;
+      box-shadow: 0 4px 12px rgba(52, 73, 94, 0.4);
+    }
+
+    .back-dashboard:hover {
+      background-color: #2c3e50;
+      box-shadow: 0 6px 20px rgba(44, 62, 80, 0.7);
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background: #f9fcff;
+      border-radius: 15px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+      padding: 20px 25px;
+      width: 270px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #0b9abf; /* blue consistent with heading */
+      font-size: 1.5rem;
+    }
+
+    .info {
+      margin: 10px 0;
+      font-size: 0.95rem;
+    }
+
+    .info strong {
+      color: #555;
+    }
+
+    .actions {
+      margin-top: 15px;
+    }
+
+    .actions a {
+      text-decoration: none;
+      margin-right: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+      color: white;
+      user-select: none;
+    }
+
+    .actions a.edit {
+      background: #0b9abf;
+      box-shadow: 0 4px 12px rgba(11, 154, 191, 0.6);
+    }
+
+    .actions a.edit:hover {
+      background: #097a8a;
+      box-shadow: 0 6px 20px rgba(9, 122, 138, 0.7);
+    }
+
+    .actions a.delete {
+      background: #e74c3c;
+      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.6);
+    }
+
+    .actions a.delete:hover {
+      background: #c0392b;
+      box-shadow: 0 6px 20px rgba(192, 57, 43, 0.7);
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .top-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-labelledby="pageTitle">
+    <div class="header">
+      <h1 id="pageTitle">🎓 Student Directory</h1>
+      <div class="top-buttons">
+        <a href="/dashboard" class="back-dashboard" role="button" aria-label="Back to Dashboard">🏠 Back to Dashboard</a>
+        <a href="/student/new" class="add-new" role="button" aria-label="Add New Student">➕ Add New Student</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <% students.forEach(student => { %>
+        <div class="card" tabindex="0">
+          <h2><%= student.name %></h2>
+          <div class="info"><strong>ID:</strong> <%= student.student_id %></div>
+          <div class="info"><strong>Age:</strong> <%= student.age %></div>
+          <div class="info"><strong>Address:</strong> <%= student.address %></div>
+          <div class="info"><strong>Contact:</strong> <%= student.contact %></div>
+          <div class="info"><strong>Room No:</strong> <%= student.room_no %></div>
+          <div class="actions">
+            <a href="/student/edit/<%= student.student_id %>" class="edit" aria-label="Edit <%= student.name %>">✏️ Edit</a>
+            <a href="/student/delete/<%= student.student_id %>" class="delete" aria-label="Delete <%= student.name %>" onclick="return confirm('Are you sure?')">🗑️ Delete</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

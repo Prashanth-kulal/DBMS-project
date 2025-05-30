@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Dashboard - Hostel Management</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #d0f0f6, #9fd9e1);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background-color: #00796b;
+      width: 100%;
+      padding: 20px 0;
+      color: white;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+    }
+    main {
+      background: white;
+      border-radius: 12px;
+      padding: 30px 40px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #004d40;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    nav {
+      margin-bottom: 40px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav a {
+      background-color: #00796b;
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,121,107,0.3);
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover {
+      background-color: #004d40;
+    }
+    section.feedback {
+      background-color: #f1f8f7;
+      padding: 25px 20px;
+      border-radius: 12px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    }
+    section.feedback h3 {
+      margin-top: 0;
+      color: #004d40;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    form.feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    form.feedback-form textarea {
+      resize: vertical;
+      min-height: 80px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    form.feedback-form label {
+      font-weight: 600;
+      color: #004d40;
+    }
+    form.feedback-form select, 
+    form.feedback-form button {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+    }
+    form.feedback-form select {
+      border: 1px solid #ccc;
+      width: 100px;
+    }
+    form.feedback-form button {
+      background-color: #00796b;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    form.feedback-form button:hover {
+      background-color: #004d40;
+    }
+    footer {
+      margin: 30px 0;
+      color: #004d40;
+      font-weight: 600;
+      text-align: center;
+    }
+    @media (max-width: 480px) {
+      main {
+        padding: 20px;
+      }
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏠 Welcome, <%= username %>!</h1>
+</header>
+
+<main>
+  <h2>Student Dashboard</h2>
+
+  <nav>
+    <a href="/fees">💰 View Fees</a>
+    <a href="/room">🛏️ Room Info</a>
+    <a href="/warden">👨‍🏫 View Warden</a> <!-- ✅ New Link -->
+    <a href="/logout">🚪 Logout</a>
+  </nav>
+
+  <section class="feedback">
+    <h3>📋 Feedback</h3>
+    <form class="feedback-form" action="/feedback" method="POST">
+      <label for="comments">Your Comments</label>
+      <textarea name="comments" id="comments" placeholder="Write your feedback here..." required></textarea>
+
+      <label for="rating">Rating</label>
+      <select name="rating" id="rating" required>
+        <option value="" disabled selected>Select rating</option>
+        <option value="5">5 - Excellent</option>
+        <option value="4">4 - Very Good</option>
+        <option value="3">3 - Good</option>
+        <option value="2">2 - Fair</option>
+        <option value="1">1 - Poor</option>
+      </select>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  &copy; <%= new Date().getFullYear() %> Hostel Management System
+</footer>
+
+</body>
+</html>

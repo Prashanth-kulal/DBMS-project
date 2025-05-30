@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Edit Warden</title>
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0bcce5, #ffffff);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px;
+  }
+  .container {
+    background: #fff;
+    max-width: 420px;
+    width: 100%;
+    border-radius: 14px;
+    padding: 30px 40px 40px 40px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #0b9abf; /* a darker tone from your blue */
+    letter-spacing: 1px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  label {
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  label .icon {
+    font-size: 1.25rem;
+  }
+  input[type="text"] {
+    padding: 14px 18px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: 2px solid #7de0ef;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    font-weight: 500;
+    color: #333;
+  }
+  input[type="text"]::placeholder {
+    color: #a0cfdc;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #0b9abf;
+    box-shadow: 0 0 8px rgba(11,154,191,0.5);
+  }
+  .btn {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 14px 0;
+    border-radius: 12px;
+    border: none;
+    color: white;
+    background: #0b9abf;
+    box-shadow: 0 5px 12px rgba(11,154,191,0.5);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn:hover,
+  .btn:focus {
+    background: #097a8a;
+    box-shadow: 0 8px 20px rgba(9,122,138,0.7);
+    outline: none;
+  }
+  .btn .icon {
+    font-size: 1.3rem;
+  }
+  .btn-secondary {
+    background: #a8a8a8;
+    margin-top: 12px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1.4;
+    box-shadow: none;
+    gap: 8px;
+  }
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background: #777777;
+    outline: none;
+  }
+  .btn-secondary .icon {
+    font-size: 1.3rem;
+  }
+</style>
+</head>
+<body>
+<div class="container" role="main" aria-labelledby="pageTitle">
+    <h1 id="pageTitle">👮‍♂️ Edit Warden</h1>
+    <form action="/warden/update/<%= warden.warden_id %>" method="POST" novalidate>
+        <label for="name"><span class="icon">👤</span> Name:</label>
+        <input id="name" name="name" type="text" value="<%= warden.name %>" required autocomplete="off" placeholder="Enter warden's name" />
+
+        <label for="contact"><span class="icon">📞</span> Contact:</label>
+        <input id="contact" name="contact" type="text" value="<%= warden.contact %>" required autocomplete="off" placeholder="Enter contact number" />
+
+        <button type="submit" class="btn" aria-label="Update Warden Details">
+          <span class="icon">💾</span> Update
+        </button>
+        <a href="/warden" class="btn btn-secondary" role="button" aria-label="Cancel and return to Warden list">
+          <span class="icon">⬅️</span> Cancel
+        </a>
+    </form>
+</div>
+</body>
+</html>

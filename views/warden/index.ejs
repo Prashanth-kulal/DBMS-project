@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Warden Management</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <h1>👮‍♂️ Warden List</h1>
+        </header>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <a href="/dashboard" class="btn btn-secondary">🏠 Back to Dashboard</a>
+            <a href="/warden/new" class="btn">➕ Add New Warden</a>
+        </div>
+
+        <!-- Warden Table -->
+        <div class="table-wrapper">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% wardens.forEach(w => { %>
+                        <tr>
+                            <td><%= w.warden_id %></td>
+                            <td><%= w.name %></td>
+                            <td><%= w.contact %></td>
+                            <td>
+                                <a href="/warden/edit/<%= w.warden_id %>" class="btn btn-small">✏️ Edit</a>
+                                <a href="/warden/delete/<%= w.warden_id %>" 
+                                   class="btn btn-danger btn-small" 
+                                   onclick="return confirm('Delete this warden?')">🗑️ Delete</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Fee</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        /* Same background color applied to entire body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e3f2fd; /* Light blue background */
+            margin: 0; padding: 0;
+        }
+        /* Container background same as body to blend */
+        .container {
+            max-width: 480px;
+            margin: 40px auto;
+            background: #fff; /* Keep container white for contrast */
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #004085;
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        form label {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #222;
+        }
+        form label i {
+            margin-right: 8px;
+            color: #004085;
+            min-width: 20px;
+            text-align: center;
+        }
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #004085;
+            outline: none;
+        }
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            background-color: #004085;
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #002752;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-edit"></i> Edit Fee Record</h1>
+        <form class="edit-fee-form" action="/fees/update/<%= fee.fees_id %>" method="POST">
+            <label for="student_id"><i class="fas fa-user-graduate"></i> Student:</label>
+            <select name="student_id" id="student_id" required>
+                <% students.forEach(s => { %>
+                    <option value="<%= s.student_id %>" <%= fee.student_id === s.student_id ? 'selected' : '' %>>
+                        <%= s.name %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <label for="amount"><i class="fas fa-wallet"></i> Hostel Fee:</label>
+            <input type="number" name="amount" id="amount" step="0.01" value="<%= fee.amount %>" required>
+
+            <label for="mess_fees"><i class="fas fa-utensils"></i> Mess Fee:</label>
+            <input type="number" name="mess_fees" id="mess_fees" step="0.01" value="<%= fee.mess_fees %>" required>
+
+            <label for="due_date"><i class="fas fa-calendar-alt"></i> Due Date:</label>
+            <input type="date" name="due_date" id="due_date" value="<%= new Date(fee.due_date).toISOString().split('T')[0] %>" required>
+
+            <label for="status"><i class="fas fa-info-circle"></i> Status:</label>
+            <select name="status" id="status">
+                <option value="Paid" <%= fee.status === 'Paid' ? 'selected' : '' %>>Paid</option>
+                <option value="Unpaid" <%= fee.status === 'Unpaid' ? 'selected' : '' %>>Unpaid</option>
+            </select>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn">
+                    <i class="fas fa-save"></i> Update
+                </button>
+                <a href="/fees" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Fees
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

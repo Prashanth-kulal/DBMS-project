@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Edit Room <%= room.room_no %></h2>
+  <form method="POST" action="/rooms/edit/<%= room.room_no %>">
+    <input type="number" name="capacity" value="<%= room.capacity %>" min="1" required />
+    <input type="number" name="occupancy" value="<%= room.occupancy %>" min="0" required />
+    <select name="type" required>
+      <option value="Single" <%= room.type === 'Single' ? 'selected' : '' %>>Single</option>
+      <option value="Double" <%= room.type === 'Double' ? 'selected' : '' %>>Double</option>
+      <option value="Suite" <%= room.type === 'Suite' ? 'selected' : '' %>>Suite</option>
+    </select>
+    <button type="submit">Update Room</button>
+  </form>
+  <a href="/room" class="back-link">Back to Room List</a>
+</div>

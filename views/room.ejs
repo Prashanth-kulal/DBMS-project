@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Room Management</title>
+<style>
+  /* Base Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4ff;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+  }
+  #app {
+    width: 900px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 30px 40px;
+  }
+
+  /* LEFT PANEL: Add Room Form */
+  #add-room-panel {
+    flex: 1 1 320px;
+    background: #e8f0ff;
+    border-radius: 10px;
+    padding: 25px 30px;
+    box-shadow: inset 0 0 15px rgb(0 123 255 / 0.15);
+  }
+  #add-room-panel h2 {
+    margin-top: 0;
+    color: #004085;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  form#addRoomForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  form#addRoomForm input {
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 2px solid #b0c4ff;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+  }
+  form#addRoomForm input:focus {
+    border-color: #004085;
+    outline: none;
+  }
+  .btn-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  form#addRoomForm button {
+    flex: 1;
+    padding: 14px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  form#addRoomForm button[type="submit"] {
+    background-color: #004085;
+  }
+  form#addRoomForm button[type="submit"]:hover {
+    background-color: #002752;
+  }
+  form#addRoomForm button[type="reset"] {
+    background-color: #6c757d;
+  }
+  form#addRoomForm button[type="reset"]:hover {
+    background-color: #565e64;
+  }
+
+  /* RIGHT PANEL: Rooms List */
+  #rooms-list-panel {
+    flex: 2 1 550px;
+  }
+  #rooms-list-panel h2 {
+    margin-top: 0;
+    font-weight: 700;
+    color: #004085;
+    font-size: 1.8rem;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    font-size: 1rem;
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.05);
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  thead th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 600;
+    padding: 14px 12px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  tbody tr {
+    background-color: #f8fbff;
+    transition: background-color 0.3s ease;
+  }
+  tbody tr:hover {
+    background-color: #e2e9ff;
+  }
+  tbody td {
+    padding: 12px 10px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  tbody input[type="text"],
+  tbody input[type="number"] {
+    width: 90px;
+    padding: 7px 10px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    border: 1.8px solid #c2d0ff;
+    transition: border-color 0.3s ease;
+  }
+  tbody input[type="text"]:focus,
+  tbody input[type="number"]:focus {
+    border-color: #004085;
+    outline: none;
+  }
+
+  .status-available {
+    color: #28a745;
+    font-weight: 700;
+  }
+  .status-full {
+    color: #dc3545;
+    font-weight: 700;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+  .actions button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+  .actions button.edit-btn {
+    background-color: #007bff;
+    min-width: 75px;
+  }
+  .actions button.edit-btn:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+  }
+  .actions button.edit-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  .actions button.delete-btn {
+    background-color: #dc3545;
+    min-width: 75px;
+  }
+  .actions button.delete-btn:hover {
+    background-color: #b02a37;
+  }
+
+  /* Back Link styled as button */
+  #back-link {
+    width: 100%;
+    margin-top: 40px;
+    text-align: center;
+  }
+  #back-link a {
+    display: inline-block;
+    background-color: #004085; /* same as submit button bg */
+    color: #fff;               /* white text */
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 10px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  #back-link a:hover {
+    background-color: #002752; /* darker blue on hover */
+    color: #fff;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- Add Room Panel -->
+  <section id="add-room-panel" aria-label="Add new room form">
+    <h2>Add New Room</h2>
+    <form id="addRoomForm" action="/room/add" method="POST" novalidate>
+      <input type="text" name="room_no" placeholder="Room Number" required aria-required="true" />
+      <input type="number" name="capacity" placeholder="Capacity" min="1" required aria-required="true" />
+      <input type="number" name="occupancy" placeholder="Occupancy" min="0" required aria-required="true" />
+      <input type="text" name="type" placeholder="Room Type (Single, Double...)" required aria-required="true" />
+      <div class="btn-group">
+        <button type="submit" aria-label="Add new room">Add Room</button>
+        <button type="reset" aria-label="Reset add room form">Reset</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Rooms List Panel -->
+  <section id="rooms-list-panel" aria-label="List of rooms">
+    <h2>Existing Rooms</h2>
+    <table id="roomsTable" aria-describedby="roomsTableCaption">
+      <caption id="roomsTableCaption" class="sr-only">Room list with editable fields and actions</caption>
+      <thead>
+        <tr>
+          <th scope="col" data-sort="room_no" tabindex="0">Room No ▲▼</th>
+          <th scope="col" data-sort="capacity" tabindex="0">Capacity ▲▼</th>
+          <th scope="col" data-sort="occupancy" tabindex="0">Occupancy ▲▼</th>
+          <th scope="col">Type</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% rooms.forEach(room => { %>
+        <tr>
+          <form class="edit-form" action="/room/edit" method="POST" novalidate>
+            <td>
+              <input type="text" name="room_no" value="<%= room.room_no %>" readonly aria-readonly="true" />
+            </td>
+            <td>
+              <input type="number" name="capacity" value="<%= room.capacity %>" min="1" required aria-required="true" />
+            </td>
+            <td>
+              <input type="number" name="occupancy" value="<%= room.occupancy %>" min="0" required aria-required="true" />
+            </td>
+            <td>
+              <input type="text" name="type" value="<%= room.type %>" required aria-required="true" />
+            </td>
+            <td class="<%= room.occupancy < room.capacity ? 'status-available' : 'status-full' %>">
+              <%= room.occupancy < room.capacity ? 'Available' : 'Full' %>
+            </td>
+            <td class="actions">
+              <button type="submit" class="edit-btn" aria-label="Save changes for room <%= room.room_no %>">Save</button>
+              <button type="button" class="delete-btn" onclick="confirmDelete('<%= room.room_no %>')" aria-label="Delete room <%= room.room_no %>">Delete</button>
+            </td>
+          </form>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Back Link -->
+  <div id="back-link">
+    <a href="/dashboard" aria-label="Go back to dashboard">← Back to Dashboard</a>
+  </div>
+</div>
+
+<script>
+  // Confirm before delete
+  function confirmDelete(roomNo) {
+    if (confirm(`Are you sure you want to delete Room ${roomNo}?`)) {
+      // Redirect or send delete request here
+      window.location.href = `/room/delete?room_no=${encodeURIComponent(roomNo)}`;
+    }
+  }
+
+  // Optional: Add sorting functionality for the table headers with tabindex and key handling (if needed)
+  // For now, just a placeholder for UX
+
+  // Accessibility: announce sorting changes if implemented
+</script>
+</body>
+</html>

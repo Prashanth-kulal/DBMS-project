@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hostel Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0bcce5;
+      padding: 30px;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #005a87;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      text-align: center;
+    }
+    .report-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    .item {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+    }
+    .label {
+      font-weight: 700;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #0077b6;
+    }
+    .btn-back {
+      margin-top: 30px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      background-color: #0077b6;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      box-shadow: 0 3px 7px rgba(0,119,182,0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-back:hover {
+      background-color: #005f86;
+      box-shadow: 0 5px 15px rgba(0,95,134,0.7);
+    }
+
+    /* Feedback Section */
+    h2 {
+      color: #004b66;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+    .feedback-list {
+      max-width: 600px;
+      width: 100%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .feedback-list li {
+      background: #ffffff;
+      border-left: 5px solid #00796b;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .feedback-list li strong {
+      color: #00796b;
+    }
+    .feedback-list li em {
+      color: #555;
+      display: block;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📊 Hostel Report</h1>
+
+  <div class="report-box">
+    <div class="item"><span class="label">👨‍🎓 Total Students:</span> <%= totalStudents %></div>
+    <div class="item"><span class="label">🏠 Total Rooms:</span> <%= totalRooms %></div>
+    <div class="item"><span class="label">🛏️ Occupied Beds:</span> <%= occupiedRooms %></div>
+    <div class="item"><span class="label">💸 Unpaid Fees (students):</span> <%= unpaidFees %></div>
+    <div class="item"><span class="label">💰 Total Fees Collected:</span> ₹<%= paidFeesTotal.toFixed(2) %></div>
+  </div>
+
+  <!-- Feedback Section -->
+  <h2>📝 Feedback Submissions</h2>
+  <ul class="feedback-list">
+    <% if (feedbacks.length > 0) { %>
+      <% feedbacks.forEach(fb => { %>
+        <li>
+          <strong><%= fb.username %></strong> rated <strong><%= fb.rating %>/5</strong> 
+          on <%= new Date(fb.created_at).toLocaleString() %>
+          <em>“<%= fb.comments %>”</em>
+        </li>
+      <% }); %>
+    <% } else { %>
+      <li>No feedback submitted yet.</li>
+    <% } %>
+  </ul>
+
+  <a href="/dashboard" class="btn-back">⬅️ Back to Dashboard</a>
+</body>
+</html>

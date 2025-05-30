@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add New Student</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0bcce5, #ffffff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: white;
+      padding: 35px 45px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: #2c3e50;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+      outline: none;
+    }
+
+    button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #219150;
+      transform: translateY(-2px);
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 25px;
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    a.back-link:hover {
+      text-decoration: underline;
+      color: #1c5984;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="form" aria-labelledby="addStudentTitle">
+    <h1 id="addStudentTitle">➕ Add New Student 🧑‍🎓</h1>
+    <form action="/student/new" method="POST" autocomplete="off">
+      <label for="name">👤 Name:</label>
+      <input type="text" name="name" id="name" required aria-required="true" />
+
+      <label for="age">🎂 Age:</label>
+      <input type="number" name="age" id="age" min="10" max="100" placeholder="e.g., 18" />
+
+      <label for="address">🏠 Address:</label>
+      <input type="text" name="address" id="address" placeholder="Full address" />
+
+      <label for="contact">📞 Contact:</label>
+      <input type="tel" name="contact" id="contact" placeholder="e.g., 9876543210" pattern="[0-9]{10}" />
+
+      <label for="room_no">🚪 Room No:</label>
+      <input type="text" name="room_no" id="room_no" placeholder="e.g., A101" />
+
+      <button type="submit">➕ Add Student</button>
+    </form>
+    <a href="/student" class="back-link">⬅ Back to Student List</a>
+  </div>
+</body>
+</html>

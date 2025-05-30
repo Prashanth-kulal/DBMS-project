@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fees Management</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <div class="container box">
+        <header>
+            <h1>💰 Fees Details</h1> <!-- added money bag emoji -->
+
+            <a href="/fees/new" class="btn btn-primary">➕ Add New Fee</a>
+            <a href="/dashboard" class="btn btn-secondary" style="margin-left: 10px;">⬅️ Back to Dashboard</a>
+        </header>
+
+        <main>
+            <table class="fees-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student</th>
+                        <th>Amount</th>
+                        <th>Mess Fees</th>
+                        <th>Total</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% fees.forEach(fee => { %>
+                        <tr>
+                            <td><%= fee.fees_id %></td>
+                            <td><%= fee.name %></td>
+                            <td>₹<%= Number(fee.amount).toFixed(2) %></td>
+                            <td>₹<%= Number(fee.mess_fees).toFixed(2) %></td>
+                            <td>₹<%= (Number(fee.amount) + Number(fee.mess_fees)).toFixed(2) %></td>
+                            <td><%= new Date(fee.due_date).toISOString().split('T')[0] %></td>
+                            <td><%= fee.status %></td>
+                            <td class="actions">
+                                <a href="/fees/edit/<%= fee.fees_id %>" class="btn btn-edit" title="Edit">✏️</a>
+                                <a href="/fees/delete/<%= fee.fees_id %>" class="btn btn-delete" onclick="return confirm('Are you sure?')" title="Delete">🗑️</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

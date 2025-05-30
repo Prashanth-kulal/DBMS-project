@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard - Hostel Management System</title>
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+    color: #222;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* Sidebar */
+  aside {
+    width: 220px; /* Sidebar width */
+    background: #003f63;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    box-shadow: 3px 0 8px rgba(0,0,0,0.2);
+    height: 100vh;
+    box-sizing: border-box;
+  }
+
+  aside h1 {
+    color: #fff;
+    font-weight: 900;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    user-select: none;
+    letter-spacing: 2px;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    padding-left: 40px;
+  }
+
+  nav a {
+    color: #aad4ff;
+    font-size: 1.3rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    user-select: none;
+    transition: color 0.3s ease;
+    outline-offset: 3px;
+    padding: 10px 0;
+  }
+
+  nav a span {
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+
+  nav a:hover,
+  nav a:focus {
+    color: #fff;
+    outline: none;
+  }
+
+  /* Logout link styled as box */
+  nav a.logout {
+    margin-top: auto;
+    font-size: 1.3rem;
+    color: #ff6b6b;
+    padding: 10px 25px;
+    border: 2px solid #ff6b6b;
+    border-radius: 12px;
+    width: fit-content;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  nav a.logout:hover,
+  nav a.logout:focus {
+    background-color: #ff6b6b;
+    color: white;
+    box-shadow: 0 0 8px #ff6b6b;
+    outline: none;
+  }
+
+  /* Main panel */
+  main {
+    flex-grow: 1;
+    background: white;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    padding: 50px 60px;
+    box-shadow: -10px 0 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+
+  main .welcome {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #003f63;
+    margin-bottom: 15px;
+    user-select: none;
+  }
+
+  main .welcome-msg {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 50px;
+    max-width: 600px;
+  }
+
+  /* Buttons container */
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 30px;
+  }
+
+  /* Individual buttons */
+  .btn {
+    background: linear-gradient(145deg, #66a6ff, #89f7fe);
+    border: none;
+    border-radius: 20px;
+    padding: 25px 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 6px 15px rgba(102, 166, 255, 0.5);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.3s ease,
+      background 0.3s ease;
+    outline-offset: 3px;
+  }
+
+  .btn:hover,
+  .btn:focus {
+    box-shadow: 0 10px 25px rgba(102, 166, 255, 0.8);
+    transform: translateY(-6px);
+    background: linear-gradient(145deg, #89f7fe, #66a6ff);
+    outline: none;
+  }
+
+</style>
+</head>
+<body>
+
+  <aside>
+    <h1>Hostel</h1>
+    <nav>
+      <a href="/student" tabindex="1" title="Student Management">👨‍🎓<span>Students</span></a>
+      <a href="/room" tabindex="2" title="Room Management">🛏️<span>Rooms</span></a>
+      <a href="/fees" tabindex="3" title="Fees Management">💰<span>Fees</span></a>
+      <a href="/warden" tabindex="4" title="Warden Management">👮‍♂️<span>Wardens</span></a>
+      <a href="/report" tabindex="5" title="Reports">📊<span>Reports</span></a>
+      <a href="/logout" class="logout" tabindex="6" title="Logout">🚪 Logout</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="welcome" tabindex="0">Welcome, <%= username %>!</div>
+    <div class="welcome-msg" tabindex="0">Manage your hostel efficiently with quick access to all key modules below.</div>
+
+    <div class="buttons" role="list">
+      <button class="btn" role="listitem" tabindex="7" onclick="location.href='/student'" onkeypress="if(event.key==='Enter')location.href='/student'">Students</button>
+      <button class="btn" role="listitem" tabindex="8" onclick="location.href='/room'" onkeypress="if(event.key==='Enter')location.href='/room'">Rooms</button>
+      <button class="btn" role="listitem" tabindex="9" onclick="location.href='/fees'" onkeypress="if(event.key==='Enter')location.href='/fees'">Fees</button>
+      <button class="btn" role="listitem" tabindex="10" onclick="location.href='/warden'" onkeypress="if(event.key==='Enter')location.href='/warden'">Wardens</button>
+      <button class="btn" role="listitem" tabindex="11" onclick="location.href='/report'" onkeypress="if(event.key==='Enter')location.href='/report'">Reports</button>
+    </div>
+  </main>
+
+</body>
+</html>
