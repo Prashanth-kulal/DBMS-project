@@ -5,7 +5,7 @@ const emails = require('./emails.json');  // Load JSON emails
 const dbConfig = {
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: 'your_password',
   database: 'hostel_management',
   port: 3305
 };
