@@ -4,8 +4,8 @@ async function sendFeeReminderEmail(studentEmail, studentName, dueAmount, dueDat
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'bhaskarakulal649@gmail.com',         // Your Gmail address
-      pass: 'wzet qjyc vtko akdp'            // Your Gmail app password from Step 1
+      user: 'example@gmail.com',         // Your Gmail address
+      pass: 'password'            // Your Gmail app password from Step 1
     }
   });
 
